@@ -46,11 +46,9 @@ exports.createOrder = async (req, res) => {
 // Обновить заказ
 exports.updateOrder = async (req, res) => {
   try {
-    const updatedOrder = await Order.findByIdAndUpdate(
-      req.params.id,
-      req.body,
-      { new: true }
-    );
+    const updatedOrder = await Order.findByIdAndUpdate(req.query.id, req.body, {
+      new: true,
+    });
     res.status(200).json(updatedOrder);
   } catch (error) {
     res.status(400).json({ message: "Ошибка обновления заказа" });
@@ -60,7 +58,7 @@ exports.updateOrder = async (req, res) => {
 // Удалить заказ
 exports.deleteOrder = async (req, res) => {
   try {
-    await Order.findByIdAndDelete(req.params.id);
+    await Order.findByIdAndDelete(req.query.id);
     res.status(200).json({ message: "Заказ удален" });
   } catch (error) {
     res.status(400).json({ message: "Ошибка удаления заказа" });
